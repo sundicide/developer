@@ -1,7 +1,9 @@
 <template>
-  <el-container id="app">
+  <el-container id="app" style="border: 10px solid #eee">
     <el-header height="200px">
-      <img src="./assets/logo.png">
+      <router-link to="/">
+        <img src="./assets/logo.png">
+      </router-link>
     </el-header>
     <el-container>
       <el-aside width="200px">
@@ -17,10 +19,24 @@
             </template>
           </el-submenu>
           <!-- 하위 메뉴를 안넣을 경우엔 el-menu-item를 쓴다 -->
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <router-link to="/directive">Directive</router-link>
-          </el-menu-item>
+          <router-link to="/directive">
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span>Directive</span>
+            </el-menu-item>
+          </router-link>
+          <router-link to="/vueinstance">
+            <el-menu-item index="3">
+              <i class="el-icon-menu"></i>
+              <span>VueInstance</span>
+            </el-menu-item>
+          </router-link>
+          <router-link to="/slot">
+            <el-menu-item index="4">
+              <i class="el-icon-menu"></i>
+              <span>Slot</span>
+            </el-menu-item>
+          </router-link>
         </el-menu>
       </el-aside>
       <el-main>
@@ -41,10 +57,12 @@ export default {
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // ESLint를 피하기 위한 코드 의미 없음
+      return (`${key}, ${keyPath}`);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // ESLint를 피하기 위한 코드 의미 없음
+      return (`${key}, ${keyPath}`);
     },
   },
 };
