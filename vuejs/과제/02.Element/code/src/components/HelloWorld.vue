@@ -19,7 +19,7 @@
             <el-tab-pane label="서비스" name="service"></el-tab-pane>
           </el-tabs>
         </el-row>
-        <el-row type="flex">
+        <el-row type="flex" style="justify-content: space-between;">
           <div v-for="values in menuValue"
             class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
             <div v-bind:class="['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]">
