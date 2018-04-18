@@ -71,22 +71,123 @@
             </el-button>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row type="flex" align="middle" :gutter="2">
           <el-col :span="2">
             <el-checkbox>이벤트 발생</el-checkbox>
           </el-col>
           <el-col :span="2">
             <i class="el-icon-star-on">관심대상</i>
           </el-col>
-          <el-col>
+          <el-col :span="16">
+          </el-col>
+          <el-col :span="3">
             <el-input
                placeholder=""
                suffix-icon="el-icon-search">
             </el-input>
           </el-col>
+          <el-col :span="1">
+            <el-button>Excel</el-button>
+          </el-col>
         </el-row>
         <el-row>
-          테이블
+          <el-col>
+            <el-table
+                 :data="tableData"
+                 :default-sort = "{prop: 'date', order: 'descending' }"
+                 stripe
+                 border
+                 style="width: 100%">
+              <el-table-column
+                 prop="status"
+                 label="상태"
+                 sortable
+                 class=".nms_comp_sty1_dataview_item">
+                <template slot-scope="scope">
+                  <div v-if="!scope.row.status" style="color:red">
+                    <i class="fas fa-circle"></i>
+                  </div>
+                  <div v-else>
+                    <i class="fas fa-circle"></i>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column
+                 prop="deviceName"
+                 label="장비명"
+                 sortable
+                 width="220">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="IP주소"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="제조사"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="모델"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="ICMP(ms)"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="SNMP(ms)"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="CPU(%)"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="메모리(%)"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="온도()"
+                 sortable
+                 width="180">
+              </el-table-column>
+              <el-table-column label="BPS" width="180">
+                <el-table-column
+                   prop="address"
+                   label="IN"
+                   sortable
+                   width="90">
+                </el-table-column>
+                <el-table-column
+                   prop="address"
+                   label="OUT"
+                   sortable
+                   width="90">
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                 prop="address"
+                 label="관심대상"
+                 sortable
+                 width="180">
+              </el-table-column>
+            </el-table>
+          </el-col>
         </el-row>
       </el-main>
       <el-footer>Footer</el-footer>
@@ -132,6 +233,31 @@ export default {
         }, {
           label: '테스트'
         }]
+      }],
+      tableData: [{
+          status: true,
+          deviceName: 'ProCurve Switch 2424M-33',
+          date: '2016-05-03',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          status: true,
+          deviceName: 'ProCurve Switch 2424M-33',
+          date: '2016-05-02',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          status: true,
+          deviceName: 'ProCurve Switch 2424M-33',
+          date: '2016-05-04',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          status: false,
+          deviceName: 'ProCurve Switch 2424M-33',
+          date: '2016-05-01',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
       }],
       defaultProps: {
         children: 'children',
