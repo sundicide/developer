@@ -47,7 +47,7 @@
               </div>
             </div>
           </el-row>
-          <el-row type="flex" align="middle" :gutter="2" style="margin-bottom: 10px;">
+          <el-row type="flex" align="middle" :gutter="2" style="margin: 10px 0px;">
             <el-col :span="2">
               <el-checkbox>이벤트 발생</el-checkbox>
             </el-col>
