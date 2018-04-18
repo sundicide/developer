@@ -1,170 +1,195 @@
 <template>
   <el-container class="nms_comp_sty1_fit_item">
-    <el-aside width="180px" class="greystyle">
-      <el-input class="searchfield" suffix-icon="el-icon-search" placeholder="" v-model="aaa"></el-input>
-      <el-tree :data="data" :props="defaultProps"></el-tree>
-    </el-aside>
+    <el-header class="greystyle">
+      <el-row type="flex" justify="start" align="middle" style="width:100%; height: 100%;">
+        <el-col :offset="0" :span="2">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>성능/운영</el-breadcrumb-item>
+            <el-breadcrumb-item>Local</el-breadcrumb-item>
+          </el-breadcrumb>
+        </el-col>
+        <el-col :offset="20" :span="2">
+          <i class="fas fa-align-justify"></i>
+          <i class="fas fa-align-justify"></i>
+          <i class="fas fa-align-justify"></i>
+          <i class="fas fa-align-justify"></i>
+        </el-col>
+      </el-row>
+    </el-header>
     <el-container>
-      <el-header class="greystyle">
-        <span style="width: 100%; height:100%; display: flex; align-items: center">
-          Local
-        </span>
-      </el-header>
-      <el-main class="greystyle">
-        <el-row>
-          <el-tabs v-model="activeName" class="elTabs">
-            <el-tab-pane label="성능조회" name="performance" style="color: red"></el-tab-pane>
-            <el-tab-pane label="이벤트/알람" name="eventalarm"></el-tab-pane>
-            <el-tab-pane label="CPU" name="cpu"></el-tab-pane>
-            <el-tab-pane label="서비스" name="service"></el-tab-pane>
-          </el-tabs>
-        </el-row>
-        <el-row type="flex" style="justify-content: space-between;">
-          <div v-for="values in menuValue"
-            class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
-            <div v-bind:class="['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]">
-                <div class="com_sty1_bx" >
-                  <p class="num">{{values.count}}</p>
-                  <div class="comp_tit">{{values.label}}</div>
-                </div>
+      <el-aside width="180px" class="greystyle">
+        <el-input class="searchfield" suffix-icon="el-icon-search" placeholder=""></el-input>
+        <el-tree :data="data" :props="defaultProps"></el-tree>
+      </el-aside>
+      <el-container>
+        <el-header class="greystyle">
+          <span style="width: 100%; height:100%; display: flex; align-items: center; font-weight: bold;">
+            Local
+          </span>
+        </el-header>
+        <el-main class="greystyle">
+          <el-row>
+            <el-tabs v-model="activeName" class="elTabs">
+              <el-tab-pane label="성능조회" name="performance" style="color: red"></el-tab-pane>
+              <el-tab-pane label="이벤트/알람" name="eventalarm"></el-tab-pane>
+              <el-tab-pane label="CPU" name="cpu"></el-tab-pane>
+              <el-tab-pane label="서비스" name="service"></el-tab-pane>
+            </el-tabs>
+          </el-row>
+          <el-row type="flex" style="justify-content: space-between;">
+            <div v-for="values in menuValue"
+              class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
+              <div v-bind:class="['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]">
+                  <div class="com_sty1_bx" >
+                    <p class="num">{{values.count}}</p>
+                    <div class="comp_tit">{{values.label}}</div>
+                  </div>
+              </div>
             </div>
-          </div>
-        </el-row>
-        <el-row type="flex" align="middle" :gutter="2" style="margin-bottom: 10px;">
-          <el-col :span="2">
-            <el-checkbox>이벤트 발생</el-checkbox>
-          </el-col>
-          <el-col :span="2">
-            <i class="el-icon-star-on">관심대상</i>
-          </el-col>
-          <el-col :span="16">
-          </el-col>
-          <el-col :span="3">
-            <el-input
-               placeholder=""
-               suffix-icon="el-icon-search">
-            </el-input>
-          </el-col>
-          <el-col :span="1">
-            <el-button>Excel</el-button>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col>
-            <el-table
-                 :data="tableData"
-                 :default-sort = "{prop: 'date', order: 'descending' }"
-                 stripe
-                 border
-                 style="width: 100%; text-align: center;"
-                 >
-              <el-table-column
-                 prop="status"
-                 label="상태"
-                 sortable
-                 width="80">
-                <template slot-scope="scope">
-                  <div v-if="!scope.row.status" style="color:red">
-                    <i class="fas fa-circle"></i>
-                  </div>
-                  <div v-else>
-                    <i class="fas fa-circle"></i>
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column
-                 prop="deviceName"
-                 label="장비명"
-                 sortable
-                 width="220">
-              </el-table-column>
-              <el-table-column
-                 prop="ipAddress"
-                 label="IP주소"
-                 sortable
-                 width="180">
-              </el-table-column>
-              <el-table-column
-                 prop="companyName"
-                 label="제조사"
-                 sortable
-                 width="180">
-              </el-table-column>
-              <el-table-column
-                 prop="modelName"
-                 label="모델"
-                 sortable
-                 width="180">
-              </el-table-column>
-              <el-table-column
-                 prop="icmp"
-                 label="ICMP(ms)"
-                 sortable
-                 width="95">
-              </el-table-column>
-              <el-table-column
-                 prop="snmp"
-                 label="SNMP(ms)"
-                 sortable
-                 width="95">
-              </el-table-column>
-              <el-table-column
-                 prop="address"
-                 label="CPU(%)"
-                 sortable
-                 width="120">
-                <template slot-scope="scope">
-                  <el-progress
-                          :text-inside="true"
-                          :stroke-width="18"
-                          :percentage="scope.row.cpu">
-                  </el-progress>
-                </template>
-              </el-table-column>
-              <el-table-column
-                 prop="address"
-                 label="메모리(%)"
-                 sortable
-                 width="120">
-                <template slot-scope="scope">
-                  <el-progress
-                          :text-inside="true"
-                          :stroke-width="18"
-                          :percentage="scope.row.memory">
-                  </el-progress>
-                </template>
-              </el-table-column>
-              <el-table-column
-                 prop="temperature"
-                 label="온도()"
-                 sortable
-                 width="90">
-              </el-table-column>
-              <el-table-column label="BPS" width="180">
+          </el-row>
+          <el-row type="flex" align="middle" :gutter="2" style="margin-bottom: 10px;">
+            <el-col :span="2">
+              <el-checkbox>이벤트 발생</el-checkbox>
+            </el-col>
+            <el-col :span="2">
+              <i class="el-icon-star-on">관심대상</i>
+            </el-col>
+            <el-col :span="16">
+            </el-col>
+            <el-col :span="3">
+              <el-input
+                 placeholder=""
+                 suffix-icon="el-icon-search">
+              </el-input>
+            </el-col>
+            <el-col :span="1">
+              <el-button>Excel</el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col>
+              <el-table
+                   :data="tableData"
+                   :default-sort = "{prop: 'date', order: 'descending' }"
+                   stripe
+                   border
+                   style="width: 100%; text-align: center;"
+                   >
                 <el-table-column
-                   prop="bpsIn"
-                   label="IN"
+                   prop="status"
+                   label="상태"
+                   sortable
+                   width="80">
+                  <template slot-scope="scope">
+                    <div v-if="!scope.row.status" style="color:red">
+                      <i class="fas fa-circle"></i>
+                    </div>
+                    <div v-else>
+                      <i class="fas fa-circle"></i>
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                   prop="deviceName"
+                   label="장비명"
+                   sortable
+                   width="220">
+                </el-table-column>
+                <el-table-column
+                   prop="ipAddress"
+                   label="IP주소"
+                   sortable
+                   width="180">
+                </el-table-column>
+                <el-table-column
+                   prop="companyName"
+                   label="제조사"
+                   sortable
+                   width="180">
+                </el-table-column>
+                <el-table-column
+                   prop="modelName"
+                   label="모델"
+                   sortable
+                   width="180">
+                </el-table-column>
+                <el-table-column
+                   prop="icmp"
+                   label="ICMP(ms)"
+                   sortable
+                   width="95">
+                </el-table-column>
+                <el-table-column
+                   prop="snmp"
+                   label="SNMP(ms)"
+                   sortable
+                   width="95">
+                </el-table-column>
+                <el-table-column
+                   prop="address"
+                   label="CPU(%)"
+                   sortable
+                   width="120">
+                  <template slot-scope="scope">
+                    <el-progress
+                            :text-inside="true"
+                            :stroke-width="18"
+                            :percentage="scope.row.cpu">
+                    </el-progress>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                   prop="address"
+                   label="메모리(%)"
+                   sortable
+                   width="120">
+                  <template slot-scope="scope">
+                    <el-progress
+                            :text-inside="true"
+                            :stroke-width="18"
+                            :percentage="scope.row.memory">
+                    </el-progress>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                   prop="temperature"
+                   label="온도()"
                    sortable
                    width="90">
                 </el-table-column>
-                <el-table-column
-                   prop="bpsOut"
-                   label="OUT"
-                   sortable
-                   width="90">
+                <el-table-column label="BPS" width="180">
+                  <el-table-column
+                     prop="bpsIn"
+                     label="IN"
+                     sortable
+                     width="90">
+                  </el-table-column>
+                  <el-table-column
+                     prop="bpsOut"
+                     label="OUT"
+                     sortable
+                     width="90">
+                  </el-table-column>
                 </el-table-column>
-              </el-table-column>
-              <el-table-column
-                  prop= "favoriteTarget"
-                  label="관심대상"
-                  sortable
-                  width="87">
-              </el-table-column>
-            </el-table>
-          </el-col>
-        </el-row>
-      </el-main>
-      <el-footer>Footer</el-footer>
+                <el-table-column
+                    prop= "favoriteTarget"
+                    label="관심대상"
+                    sortable
+                    width="87">
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+        </el-main>
+        <el-footer style="margin-top: 20px;">
+          <el-pagination 
+            background
+            layout="prev,pager,next"
+            :total="20"
+            >
+          </el-pagination>
+        </el-footer>
+      </el-container>
     </el-container>
   </el-container>
   
@@ -310,7 +335,6 @@ export default {
         label: 'label'
       },
       activeName: 'performance',
-      aaa: '123',
     }
   },
   methods: {
