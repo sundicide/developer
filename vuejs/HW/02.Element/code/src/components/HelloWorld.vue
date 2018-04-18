@@ -18,12 +18,19 @@
     </el-header>
     <el-container>
       <el-aside width="180px" class="greystyle">
-        <el-input class="searchfield" suffix-icon="el-icon-search" placeholder=""></el-input>
+        <el-input
+          class="searchfield"
+          suffix-icon="el-icon-search"
+          placeholder=""
+          size="small"
+          >
+        </el-input>
         <el-tree :data="data" :props="defaultProps"></el-tree>
       </el-aside>
       <el-container>
         <el-header class="greystyle">
-          <span style="width: 100%; height:100%; display: flex; align-items: center; font-weight: bold;">
+          <span style="width: 100%; height:100%;
+            display: flex; align-items: center; font-weight: bold;">
             Local
           </span>
         </el-header>
@@ -37,9 +44,13 @@
             </el-tabs>
           </el-row>
           <el-row type="flex" style="justify-content: space-between;">
-            <div v-for="values in menuValue"
-              class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
-              <div v-bind:class="['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]">
+            <div v-for="(values,index) in menuValue" v-bind:key="index"
+              class="nms_comp_sty1_dataview_item"
+              style="{['width:' + (100/xcount) + '%;min-width:171px;
+                max-width:200px;height:100px;']}">
+              <div v-bind:class="['nms_comp_sty1_wrap ' +
+                (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +
+                (values.selected ? '_selected' : '')]">
                   <div class="com_sty1_bx" >
                     <p class="num">{{values.count}}</p>
                     <div class="comp_tit">{{values.label}}</div>
@@ -200,7 +211,7 @@
           </el-row>
         </el-main>
         <el-footer style="margin-top: 20px;">
-          <el-pagination 
+          <el-pagination
             background
             layout="prev,pager,next"
             :total="20"
@@ -210,13 +221,12 @@
       </el-container>
     </el-container>
   </el-container>
-  
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  data () {
+  data() {
     return {
       buttonSpan: 4,
       data: [{
@@ -224,69 +234,69 @@ export default {
         children: [{
           label: '테스트 그룹',
           children: [{
-          }]
+          }],
         }, {
           label: '10.* 관리 그룹',
           children: [{
-          }]
+          }],
         }, {
           label: '전체 장비 관리 그룹',
           children: [{
-          }]
+          }],
         }, {
-          label: '테스트 그룹'
+          label: '테스트 그룹',
         }, {
           label: '1234',
           children: [{
-          }]
+          }],
         }, {
           label: 'test3',
           children: [{
-          }]
+          }],
         }, {
-          label: '테스트 그룹1'
+          label: '테스트 그룹1',
         }, {
-          label: '테스트 그룹2'
+          label: '테스트 그룹2',
         }, {
-          label: '테스트'
-        }]
+          label: '테스트',
+        }],
       }],
       menuValue: [{
         count: 5,
         selected: true,
-        label: '종합'
-      },{
+        label: '종합',
+      }, {
         count: 3,
         selected: true,
-        label: '장비 다운'
-      },{
+        label: '장비 다운',
+      }, {
         count: 0,
         selected: true,
-        label: '응답 시간'
-      },{
+        label: '응답 시간',
+      }, {
         count: 0,
         selected: true,
-        label: 'CPU'
-      },{
+        label: 'CPU',
+      }, {
         count: 0,
         selected: true,
-        label: '메모리'
-      },{
+        label: '메모리',
+      }, {
         count: 0,
         selected: true,
-        label: '온도'
-      },{
+        label: '온도',
+      }, {
         count: 1,
         selected: true,
-        label: '시스템 로그(SysLog)'
-      },{
+        label: '시스템 로그(SysLog)',
+      }, {
         count: 1,
         selected: true,
-        label: '장비 알람(Trap)'
-      },{
+        label: '장비 알람(Trap)',
+      }, {
         count: 0,
         selected: true,
-        label: '사용자 정의'
+        label: '사용자 정의',
       }],
       tableData: [{
         status: false,
@@ -302,7 +312,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: true,
-        rateValue: 0
+        rateValue: 0,
       }, {
         status: true,
         deviceName: 'ProCurve Switch 2424M-33',
@@ -317,7 +327,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: true,
-        rateValue: 0
+        rateValue: 0,
       }, {
         status: true,
         deviceName: 'ProCurve Switch 2424M-33',
@@ -332,7 +342,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: true,
-        rateValue: 0
+        rateValue: 0,
       }, {
         status: false,
         deviceName: 'ProCurve Switch 2424M-33',
@@ -347,224 +357,218 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: false,
-        rateValue: 1
+        rateValue: 1,
       }],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'label',
       },
       activeName: 'performance',
-    }
+    };
   },
   methods: {
-    handleNodeClick(data){
+    handleNodeClick(data) {
       console.log(data);
     },
-    getHeaderCellStyle(row, rowIndex){
-      return {
-        width: '100%',
-        textAlign: 'center',
-      }
-    },
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .greystyle{
-  border: 1px solid #ebeef5;
-  margin: 3px;
+border: 1px solid #ebeef5;
+margin: 3px;
 }
 .el-header {
-  text-align: left;
+text-align: left;
 }
 .el-row.button_row{
-  height: 100px;
-  margin-bottom: 20px;
+height: 100px;
+margin-bottom: 20px;
 }
 .el-row .el-button{
-  width: 100%;
-  height: 100%;
+width: 100%;
+height: 100%;
 }
 .el-tabs__active-bar{
-  background-color: red;
+background-color: red;
 }
 .el-tabs__item.is-active{
-  color: red;
+color: red;
 }
 .nms_comp_sty1_fit_item {/*수정*/
-	height: 100%;
+height: 100%;
 }
 
 .nms_comp_sty1_dataview_item {/*수정*/
-	position: relative;
-	float: left;
-	padding: 2.5px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-  justify-content: space-between;
+position: relative;
+float: left;
+padding: 2.5px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+justify-content: space-between;
 }
 
 .nms_comp_sty1_wrap .x-view-item-focused {/*수정*/
-	outline-style: none;
-	outline: 0px !important;
+outline-style: none;
+outline: 0px !important;
 }
 
 /* default comp_sty1 css */
 .nms_comp_sty1_wrap {/*수정*/
-	position: absolute;
-	cursor: pointer;
-	width: calc(100% - 4px);
-	height: calc(100% - 6px);
-	left: 2px;
-	top: 2px;
-	min-height: 90px;
+position: absolute;
+cursor: pointer;
+width: calc(100% - 4px);
+height: calc(100% - 6px);
+left: 2px;
+top: 2px;
+min-height: 90px;
 }
 
 .nms_comp_sty1_wrap .com_sty1_bx {/*수정*/
-	width: 100px;
-	height: 52px;
-	position: absolute;
-	text-align: center;
-	margin: 2 0 0 0;
-	padding: 0;
-	left: calc(50% - 50px);
-	top: calc(50% - 22px);
+width: 100px;
+height: 52px;
+position: absolute;
+text-align: center;
+margin: 2 0 0 0;
+padding: 0;
+left: calc(50% - 50px);
+top: calc(50% - 22px);
 }
 
 .nms_comp_sty1_wrap .com_sty1_bx p.num {/*수정*/
-	font-size: 30px;
-	font-weight: 600;
-	font-family: 'NanumGothic', sans-serif;
-	height: 30px;
-	line-height: 30px;
-	display: inherit;
-	margin: 0px;
-	padding-top: 0px !important;
+font-size: 30px;
+font-weight: 600;
+font-family: 'NanumGothic', sans-serif;
+height: 30px;
+line-height: 30px;
+display: inherit;
+margin: 0px;
+padding-top: 0px !important;
 }
 
 .nms_comp_sty1_wrap .com_sty1_bx .comp_tit {/*수정*/
-	font-size: 13px;
-	font-family: 'NanumGothic', sans-serif;
-	line-height: 14px;
-	height: 14px;
-	margin-top: 3px;
-	font-weight: 600;
-	color: #6c7278;
+font-size: 13px;
+font-family: 'NanumGothic', sans-serif;
+line-height: 14px;
+height: 14px;
+margin-top: 3px;
+font-weight: 600;
+color: #6c7278;
 }
 
 /*
 .comp_sty1_blue {
-	background-color: #f9fbfd;
-	border: solid 1px #e7e9ee;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #618cc5;
+background-color: #f9fbfd;
+border: solid 1px #e7e9ee;
+border-top: none;
+box-shadow: inset 0px 4px 0 #618cc5;
 }
 */
 .nms_comp_sty1_blue { /* 20160902 *//*수정*/
-	background-color: #f4f9fe;
-	border: solid 1px #d3d7e3;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #618cc5;
+background-color: #f4f9fe;
+border: solid 1px #d3d7e3;
+border-top: none;
+box-shadow: inset 0px 4px 0 #618cc5;
 }
 
 .nms_comp_sty1_blue .com_sty1_bx p.num {/*수정*/
-	color: #444e5d;
+color: #444e5d;
 }
 
 .nms_comp_sty1_blue .com_sty1_bx .comp_tit {/*수정*/
-	color: #6c7278;
+color: #6c7278;
 }
 
 .nms_comp_sty1_blue:hover {/*수정*/
-	background-color: #f0f6ff;
-	border: solid 1px #3764a8;
-	border-bottom: solid 1px #4070b8;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #3764a8, 0 1px 0 #e5e5e5;
+background-color: #f0f6ff;
+border: solid 1px #3764a8;
+border-bottom: solid 1px #4070b8;
+border-top: none;
+box-shadow: inset 0px 4px 0 #3764a8, 0 1px 0 #e5e5e5;
 }
 
 .nms_comp_sty1_blue:hover .com_sty1_bx p.num {/*수정*/
-	color: #000;
+color: #000;
 }
 
 .nms_comp_sty1_blue:hover .com_sty1_bx .comp_tit {/*수정*/
-	color: #244f90;
+color: #244f90;
 }
 
 .nms_comp_sty1_blue_selected {/*수정*/
-	background-color: #f0f6ff;
-	border: solid 1px #3764a8;
-	border-bottom: solid 1px #4070b8;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #3764a8, 0 1px 0 #e5e5e5;
+background-color: #f0f6ff;
+border: solid 1px #3764a8;
+border-bottom: solid 1px #4070b8;
+border-top: none;
+box-shadow: inset 0px 4px 0 #3764a8, 0 1px 0 #e5e5e5;
 }
 
 .nms_comp_sty1_blue_selected .com_sty1_bx p.num {/*수정*/
-	color: #000;
+color: #000;
 }
 
 .nms_comp_sty1_blue_selected .com_sty1_bx .comp_tit {/*수정*/
-	color: #244f90;
+color: #244f90;
 }
 
 /*수정*//*
 .nms_comp_sty1_red {
-	background-color: #fff9f9;
-	border: solid 1px #f0e6e6;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #d65154;
+background-color: #fff9f9;
+border: solid 1px #f0e6e6;
+border-top: none;
+box-shadow: inset 0px 4px 0 #d65154;
 }
 */
 .nms_comp_sty1_red { /* 20160902 *//*수정*/
-	background-color: #fff6f6;
-	border: solid 1px #eecccc;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #d65154;
+background-color: #fff6f6;
+border: solid 1px #eecccc;
+border-top: none;
+box-shadow: inset 0px 4px 0 #d65154;
 }
 
 .nms_comp_sty1_red .com_sty1_bx p.num {/*수정*/
-	color: #514542;
+color: #514542;
 }
 
 .nms_comp_sty1_red .com_sty1_bx .comp_tit {/*수정*/
-	color: #7a7a7a;
+color: #7a7a7a;
 }
 
 .nms_comp_sty1_red:hover {/*수정*/
-	background-color: #fef1f1;
-	border: solid 1px #c60101;
-	border-bottom: solid 1px #dc8293;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #c60101, 0 1px 0 #e5e5e5;
+background-color: #fef1f1;
+border: solid 1px #c60101;
+border-bottom: solid 1px #dc8293;
+border-top: none;
+box-shadow: inset 0px 4px 0 #c60101, 0 1px 0 #e5e5e5;
 }
 
 .nms_comp_sty1_red:hover .com_sty1_bx p.num {/*수정*/
-	color: #000;
+color: #000;
 }
 
 .nms_comp_sty1_red:hover .com_sty1_bx .comp_tit {/*수정*/
-	color: #d0001d;
+color: #d0001d;
 }
 
 .nms_comp_sty1_red_selected {/*수정*/
-	background-color: #fef1f1;
-	border: solid 1px #c60101;
-	border-bottom: solid 1px #dc8293;
-	border-top: none;
-	box-shadow: inset 0px 4px 0 #c60101, 0 1px 0 #e5e5e5;
+background-color: #fef1f1;
+border: solid 1px #c60101;
+border-bottom: solid 1px #dc8293;
+border-top: none;
+box-shadow: inset 0px 4px 0 #c60101, 0 1px 0 #e5e5e5;
 }
 
 .nms_comp_sty1_red_selected .com_sty1_bx p.num {/*수정*/
-	color: #000;
+color: #000;
 }
 
 .nms_comp_sty1_red_selected .com_sty1_bx .comp_tit {/*수정*/
-	color: #d0001d;
+color: #d0001d;
 }
 .excel_button {
-  width: 100%
+ width: 100%
 }
 </style>
