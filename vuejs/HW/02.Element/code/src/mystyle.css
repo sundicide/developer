@@ -1,0 +1,9 @@
+.searchfield .el-input__inner{
+border-radius: 20px;
+}
+.elTabs .el-tabs__active-bar {
+background-color: red;
+}
+.elTabs .el-tabs__item.is-active {
+color:red;
+}
