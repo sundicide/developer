@@ -1,6 +1,6 @@
 <template>
   <el-container class="nms_comp_sty1_fit_item">
-    <el-header class="greystyle">
+    <el-header>
       <el-row type="flex" justify="start" align="middle" style="width:100%; height: 100%;">
         <el-col :offset="0" :span="2">
           <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -8,7 +8,7 @@
             <el-breadcrumb-item>Local</el-breadcrumb-item>
           </el-breadcrumb>
         </el-col>
-        <el-col :offset="20" :span="2">
+        <el-col :offset="20" :span="2" :push="1">
           <i class="fas fa-align-justify"></i>
           <i class="fas fa-align-justify"></i>
           <i class="fas fa-align-justify"></i>
@@ -63,7 +63,7 @@
               </el-input>
             </el-col>
             <el-col :span="1">
-              <el-button>Excel</el-button>
+              <el-button class="excel_button">Excel</el-button>
             </el-col>
           </el-row>
           <el-row>
@@ -73,13 +73,13 @@
                    :default-sort = "{prop: 'date', order: 'descending' }"
                    stripe
                    border
-                   style="width: 100%; text-align: center;"
                    >
                 <el-table-column
                    prop="status"
                    label="상태"
                    sortable
-                   width="80">
+                   align="center"
+                   min-width="80">
                   <template slot-scope="scope">
                     <div v-if="!scope.row.status" style="color:red">
                       <i class="fas fa-circle"></i>
@@ -93,48 +93,56 @@
                    prop="deviceName"
                    label="장비명"
                    sortable
-                   width="220">
+                   align="center"
+                   min-width="220">
                 </el-table-column>
                 <el-table-column
                    prop="ipAddress"
                    label="IP주소"
                    sortable
-                   width="180">
+                   align="center"
+                   min-width="166">
                 </el-table-column>
                 <el-table-column
                    prop="companyName"
                    label="제조사"
                    sortable
-                   width="180">
+                   align="center"
+                   min-width="180">
                 </el-table-column>
                 <el-table-column
                    prop="modelName"
                    label="모델"
                    sortable
-                   width="180">
+                   align="center"
+                   min-width="180">
                 </el-table-column>
                 <el-table-column
                    prop="icmp"
                    label="ICMP(ms)"
                    sortable
-                   width="95">
+                   align="center"
+                   min-width="95">
                 </el-table-column>
                 <el-table-column
                    prop="snmp"
                    label="SNMP(ms)"
                    sortable
-                   width="95">
+                   align="center"
+                   min-width="95">
                 </el-table-column>
                 <el-table-column
                    prop="address"
                    label="CPU(%)"
                    sortable
-                   width="120">
+                   align="center"
+                   min-width="120">
                   <template slot-scope="scope">
                     <el-progress
                             :text-inside="true"
                             :stroke-width="18"
-                            :percentage="scope.row.cpu">
+                            :percentage="scope.row.cpu"
+                            status="exception">
                     </el-progress>
                   </template>
                 </el-table-column>
@@ -142,12 +150,14 @@
                    prop="address"
                    label="메모리(%)"
                    sortable
-                   width="120">
+                   align="center"
+                   min-width="120">
                   <template slot-scope="scope">
                     <el-progress
                             :text-inside="true"
                             :stroke-width="18"
-                            :percentage="scope.row.memory">
+                            :percentage="scope.row.memory"
+                            status="exception">
                     </el-progress>
                   </template>
                 </el-table-column>
@@ -155,27 +165,35 @@
                    prop="temperature"
                    label="온도()"
                    sortable
-                   width="90">
+                   align="center"
+                   min-width="90">
                 </el-table-column>
-                <el-table-column label="BPS" width="180">
+                <el-table-column label="BPS" align="center" min-width="180">
                   <el-table-column
                      prop="bpsIn"
                      label="IN"
                      sortable
-                     width="90">
+                     align="center"
+                     min-width="90">
                   </el-table-column>
                   <el-table-column
                      prop="bpsOut"
                      label="OUT"
                      sortable
-                     width="90">
+                     align="center"
+                     min-width="90">
                   </el-table-column>
                 </el-table-column>
                 <el-table-column
                     prop= "favoriteTarget"
                     label="관심대상"
                     sortable
-                    width="87">
+                     align="center"
+                    min-width="87">
+                  <template slot-scope="scope">
+                    <el-rate :max="1" v-model="scope.row.rateValue" disabled>
+                    </el-rate>
+                  </template>
                 </el-table-column>
               </el-table>
             </el-col>
@@ -284,6 +302,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: true,
+        rateValue: 0
       }, {
         status: true,
         deviceName: 'ProCurve Switch 2424M-33',
@@ -298,6 +317,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: true,
+        rateValue: 0
       }, {
         status: true,
         deviceName: 'ProCurve Switch 2424M-33',
@@ -312,6 +332,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: true,
+        rateValue: 0
       }, {
         status: false,
         deviceName: 'ProCurve Switch 2424M-33',
@@ -326,9 +347,7 @@ export default {
         bpsIn: 2268264,
         bpsOut: 2280231,
         favoriteTarget: false,
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
+        rateValue: 1
       }],
       defaultProps: {
         children: 'children',
@@ -544,5 +563,8 @@ export default {
 
 .nms_comp_sty1_red_selected .com_sty1_bx .comp_tit {/*수정*/
 	color: #d0001d;
+}
+.excel_button {
+  width: 100%
 }
 </style>
