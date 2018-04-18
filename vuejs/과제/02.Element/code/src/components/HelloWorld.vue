@@ -1,22 +1,27 @@
 <template>
   <el-container class="nms_comp_sty1_fit_item">
-    <el-aside width="200px">
+    <el-aside width="180px" class="greystyle">
+      <el-input class="searchfield" suffix-icon="el-icon-search" placeholder="" v-model="aaa"></el-input>
       <el-tree :data="data" :props="defaultProps"></el-tree>
     </el-aside>
     <el-container>
-      <el-header>Local</el-header>
-      <el-main>
+      <el-header class="greystyle">
+        <span style="width: 100%; height:100%; display: flex; align-items: center">
+          Local
+        </span>
+      </el-header>
+      <el-main class="greystyle">
         <el-row>
-          <el-tabs>
-            <el-tab-pane label="성능조회" name="performance">성능조회</el-tab-pane>
-            <el-tab-pane label="이벤트/알람" name="eventalarm">이벤트/알람</el-tab-pane>
-            <el-tab-pane label="CPU" name="cpu">CPU</el-tab-pane>
-            <el-tab-pane label="서비스" name="service">서비스</el-tab-pane>
+          <el-tabs v-model="activeName" class="elTabs">
+            <el-tab-pane label="성능조회" name="performance" style="color: red"></el-tab-pane>
+            <el-tab-pane label="이벤트/알람" name="eventalarm"></el-tab-pane>
+            <el-tab-pane label="CPU" name="cpu"></el-tab-pane>
+            <el-tab-pane label="서비스" name="service"></el-tab-pane>
           </el-tabs>
         </el-row>
         <el-row type="flex">
           <div v-for="values in menuValue"
-                                           class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
+            class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
             <div v-bind:class="['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]">
                 <div class="com_sty1_bx" >
                   <p class="num">{{values.count}}</p>
@@ -25,7 +30,7 @@
             </div>
           </div>
         </el-row>
-        <el-row type="flex" align="middle" :gutter="2">
+        <el-row type="flex" align="middle" :gutter="2" style="margin-bottom: 10px;">
           <el-col :span="2">
             <el-checkbox>이벤트 발생</el-checkbox>
           </el-col>
@@ -51,7 +56,7 @@
                  :default-sort = "{prop: 'date', order: 'descending' }"
                  stripe
                  border
-                 header-cell-style="{width: 100%; text-align: center;}"
+                 style="width: 100%; text-align: center;"
                  >
               <el-table-column
                  prop="status"
@@ -153,7 +158,7 @@
                   prop= "favoriteTarget"
                   label="관심대상"
                   sortable
-                  width="95">
+                  width="87">
               </el-table-column>
             </el-table>
           </el-col>
@@ -303,22 +308,32 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'label'
-      }
+      },
+      activeName: 'performance',
+      aaa: '123',
     }
   },
   methods: {
     handleNodeClick(data){
       console.log(data);
-    }
+    },
+    getHeaderCellStyle(row, rowIndex){
+      return {
+        width: '100%',
+        textAlign: 'center',
+      }
+    },
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.greystyle{
+  border: 1px solid #ebeef5;
+  margin: 3px;
+}
 .el-header {
-  border: 1px solid grey;
-  background-color: blue;
   text-align: left;
 }
 .el-row.button_row{
@@ -329,7 +344,12 @@ export default {
   width: 100%;
   height: 100%;
 }
-
+.el-tabs__active-bar{
+  background-color: red;
+}
+.el-tabs__item.is-active{
+  color: red;
+}
 .nms_comp_sty1_fit_item {/*수정*/
 	height: 100%;
 }
