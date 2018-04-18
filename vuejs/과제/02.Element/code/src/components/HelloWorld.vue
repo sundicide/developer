@@ -14,57 +14,57 @@
             <el-tab-pane label="서비스" name="service">서비스</el-tab-pane>
           </el-tabs>
         </el-row>
-        <el-row>
-          <el-col>
+        <el-row :gutter="5" type="flex" class="button_row">
+          <el-col :span="buttonSpan">
             <el-button size="medium" class="nms_comp_sty1_red">
               <div>5</div>
               <div>종합</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_red">
               <div>3</div>
               <div>장비 다운</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_blue">
               <div>0</div>
               <div>응답 시간</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_blue">
               <div>0</div>
               <div>CPU</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_blue">
               <div>0</div>
               <div>메모리</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_blue">
               <div>0</div>
               <div>온도</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_red">
               <div>1</div>
               <div>시스템 로그</div>
               <div>(SysLog)</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_red">
               <div>1</div>
               <div>장비 알람(Trap)</div>
             </el-button>
           </el-col>
-          <el-col>
+          <el-col :span="buttonSpan">
             <el-button class="nms_comp_sty1_blue">
               <div>0</div>
               <div>사용자 정의</div>
@@ -72,12 +72,18 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-checkbox>이벤트 발생</el-checkbox>
-          <i class="el-icon-star-on">관심대상</i>
-          <el-input
-             placeholder=""
-             suffix-icon="el-icon-search">
-          </el-input>
+          <el-col :span="2">
+            <el-checkbox>이벤트 발생</el-checkbox>
+          </el-col>
+          <el-col :span="2">
+            <i class="el-icon-star-on">관심대상</i>
+          </el-col>
+          <el-col>
+            <el-input
+               placeholder=""
+               suffix-icon="el-icon-search">
+            </el-input>
+          </el-col>
         </el-row>
         <el-row>
           테이블
@@ -94,6 +100,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      buttonSpan: 4,
       data: [{
         label: 'Local',
         children: [{
@@ -147,9 +154,14 @@ export default {
   background-color: blue;
   text-align: left;
 }
-.el-row .el-button{
-  width: 150px;
+.el-row.button_row{
   height: 100px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.el-row .el-button{
+  width: 100%;
+  height: 100%;
 }
 
 .nms_comp_sty1_fit_item {/*수정*/
