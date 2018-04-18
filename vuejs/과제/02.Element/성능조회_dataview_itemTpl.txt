@@ -1,0 +1,8 @@
+<div class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:101px;max-width:194.5px;height:100px;']}">
+    <div class="{['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]}" >
+        <div class="com_sty1_bx" >
+            <p class="num">{count}</p>
+            <div class="comp_tit">{label}</div>
+        </div>
+    </div>
+</div>
