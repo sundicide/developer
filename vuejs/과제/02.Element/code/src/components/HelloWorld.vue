@@ -14,62 +14,16 @@
             <el-tab-pane label="서비스" name="service">서비스</el-tab-pane>
           </el-tabs>
         </el-row>
-        <el-row :gutter="5" type="flex" class="button_row">
-          <el-col :span="buttonSpan">
-            <el-button size="medium" class="nms_comp_sty1_red">
-              <div>5</div>
-              <div>종합</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_red">
-              <div>3</div>
-              <div>장비 다운</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_blue">
-              <div>0</div>
-              <div>응답 시간</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_blue">
-              <div>0</div>
-              <div>CPU</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_blue">
-              <div>0</div>
-              <div>메모리</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_blue">
-              <div>0</div>
-              <div>온도</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_red">
-              <div>1</div>
-              <div>시스템 로그</div>
-              <div>(SysLog)</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_red">
-              <div>1</div>
-              <div>장비 알람(Trap)</div>
-            </el-button>
-          </el-col>
-          <el-col :span="buttonSpan">
-            <el-button class="nms_comp_sty1_blue">
-              <div>0</div>
-              <div>사용자 정의</div>
-            </el-button>
-          </el-col>
+        <el-row type="flex">
+          <div v-for="values in menuValue"
+                                           class="nms_comp_sty1_dataview_item" style="{['width:' + (100/xcount) + '%;min-width:171px;max-width:200px;height:100px;']}">
+            <div v-bind:class="['nms_comp_sty1_wrap ' + (values.count > 0 ? 'nms_comp_sty1_red' : 'nms_comp_sty1_blue') +  (values.selected ? '_selected' : '')]">
+                <div class="com_sty1_bx" >
+                  <p class="num">{{values.count}}</p>
+                  <div class="comp_tit">{{values.label}}</div>
+                </div>
+            </div>
+          </div>
         </el-row>
         <el-row type="flex" align="middle" :gutter="2">
           <el-col :span="2">
@@ -97,12 +51,13 @@
                  :default-sort = "{prop: 'date', order: 'descending' }"
                  stripe
                  border
-                 style="width: 100%">
+                 header-cell-style="{width: 100%; text-align: center;}"
+                 >
               <el-table-column
                  prop="status"
                  label="상태"
                  sortable
-                 class=".nms_comp_sty1_dataview_item">
+                 width="80">
                 <template slot-scope="scope">
                   <div v-if="!scope.row.status" style="color:red">
                     <i class="fas fa-circle"></i>
@@ -119,72 +74,86 @@
                  width="220">
               </el-table-column>
               <el-table-column
-                 prop="address"
+                 prop="ipAddress"
                  label="IP주소"
                  sortable
                  width="180">
               </el-table-column>
               <el-table-column
-                 prop="address"
+                 prop="companyName"
                  label="제조사"
                  sortable
                  width="180">
               </el-table-column>
               <el-table-column
-                 prop="address"
+                 prop="modelName"
                  label="모델"
                  sortable
                  width="180">
               </el-table-column>
               <el-table-column
-                 prop="address"
+                 prop="icmp"
                  label="ICMP(ms)"
                  sortable
-                 width="180">
+                 width="95">
               </el-table-column>
               <el-table-column
-                 prop="address"
+                 prop="snmp"
                  label="SNMP(ms)"
                  sortable
-                 width="180">
+                 width="95">
               </el-table-column>
               <el-table-column
                  prop="address"
                  label="CPU(%)"
                  sortable
-                 width="180">
+                 width="120">
+                <template slot-scope="scope">
+                  <el-progress
+                          :text-inside="true"
+                          :stroke-width="18"
+                          :percentage="scope.row.cpu">
+                  </el-progress>
+                </template>
               </el-table-column>
               <el-table-column
                  prop="address"
                  label="메모리(%)"
                  sortable
-                 width="180">
+                 width="120">
+                <template slot-scope="scope">
+                  <el-progress
+                          :text-inside="true"
+                          :stroke-width="18"
+                          :percentage="scope.row.memory">
+                  </el-progress>
+                </template>
               </el-table-column>
               <el-table-column
-                 prop="address"
+                 prop="temperature"
                  label="온도()"
                  sortable
-                 width="180">
+                 width="90">
               </el-table-column>
               <el-table-column label="BPS" width="180">
                 <el-table-column
-                   prop="address"
+                   prop="bpsIn"
                    label="IN"
                    sortable
                    width="90">
                 </el-table-column>
                 <el-table-column
-                   prop="address"
+                   prop="bpsOut"
                    label="OUT"
                    sortable
                    width="90">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                 prop="address"
-                 label="관심대상"
-                 sortable
-                 width="180">
+                  prop= "favoriteTarget"
+                  label="관심대상"
+                  sortable
+                  width="95">
               </el-table-column>
             </el-table>
           </el-col>
@@ -234,30 +203,102 @@ export default {
           label: '테스트'
         }]
       }],
+      menuValue: [{
+        count: 5,
+        selected: true,
+        label: '종합'
+      },{
+        count: 3,
+        selected: true,
+        label: '장비 다운'
+      },{
+        count: 0,
+        selected: true,
+        label: '응답 시간'
+      },{
+        count: 0,
+        selected: true,
+        label: 'CPU'
+      },{
+        count: 0,
+        selected: true,
+        label: '메모리'
+      },{
+        count: 0,
+        selected: true,
+        label: '온도'
+      },{
+        count: 1,
+        selected: true,
+        label: '시스템 로그(SysLog)'
+      },{
+        count: 1,
+        selected: true,
+        label: '장비 알람(Trap)'
+      },{
+        count: 0,
+        selected: true,
+        label: '사용자 정의'
+      }],
       tableData: [{
-          status: true,
-          deviceName: 'ProCurve Switch 2424M-33',
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
-        }, {
-          status: true,
-          deviceName: 'ProCurve Switch 2424M-33',
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
-        }, {
-          status: true,
-          deviceName: 'ProCurve Switch 2424M-33',
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
-        }, {
-          status: false,
-          deviceName: 'ProCurve Switch 2424M-33',
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
+        status: false,
+        deviceName: 'ProCurve Switch 2424M-33',
+        ipAddress: '192.168.143.122',
+        companyName: 'Alteon networks, Inc.',
+        modelName: 'Catalyst 37xxStack',
+        icmp: -1,
+        snmp: 1,
+        cpu: 0,
+        memory: 0,
+        temperature: '-',
+        bpsIn: 2268264,
+        bpsOut: 2280231,
+        favoriteTarget: true,
+      }, {
+        status: true,
+        deviceName: 'ProCurve Switch 2424M-33',
+        ipAddress: '192.168.143.122',
+        companyName: 'Alteon networks, Inc.',
+        modelName: 'Catalyst 37xxStack',
+        icmp: -1,
+        snmp: 0,
+        cpu: 0,
+        memory: 0,
+        temperature: '-',
+        bpsIn: 2268264,
+        bpsOut: 2280231,
+        favoriteTarget: true,
+      }, {
+        status: true,
+        deviceName: 'ProCurve Switch 2424M-33',
+        ipAddress: '192.168.143.122',
+        companyName: 'Alteon networks, Inc.',
+        modelName: 'Catalyst 37xxStack',
+        icmp: -1,
+        snmp: -1,
+        cpu: 0,
+        memory: 0,
+        temperature: '-',
+        bpsIn: 2268264,
+        bpsOut: 2280231,
+        favoriteTarget: true,
+      }, {
+        status: false,
+        deviceName: 'ProCurve Switch 2424M-33',
+        ipAddress: '192.168.143.122',
+        companyName: 'Alteon networks, Inc.',
+        modelName: 'Catalyst 37xxStack',
+        icmp: -1,
+        snmp: 1,
+        cpu: 31,
+        memory: 0,
+        temperature: '-',
+        bpsIn: 2268264,
+        bpsOut: 2280231,
+        favoriteTarget: false,
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles'
       }],
       defaultProps: {
         children: 'children',
@@ -282,7 +323,6 @@ export default {
 }
 .el-row.button_row{
   height: 100px;
-  justify-content: space-between;
   margin-bottom: 20px;
 }
 .el-row .el-button{
@@ -301,6 +341,7 @@ export default {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+  justify-content: space-between;
 }
 
 .nms_comp_sty1_wrap .x-view-item-focused {/*수정*/
