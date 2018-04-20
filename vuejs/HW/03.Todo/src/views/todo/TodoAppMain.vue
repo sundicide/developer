@@ -1,7 +1,7 @@
 <template>
   <ul :class="$style.ul">
-    <li v-for="(value, index) in todolist" v-bind:key="index">
-      <el-checkbox :label="value" :contenteditable="contentEditable" @dblclick.native="editTodo()"></el-checkbox>
+    <li v-show="!value.hide" v-for="(value, index) in todolist" v-bind:key="index">
+      <el-checkbox :label="value.label" v-model="value.done" :contenteditable="contentEditable" @dblclick.native="editTodo()"></el-checkbox>
       <span :class="$style.close" @click.stop="deleteTodo(index)">&#x00D7;</span>
     </li>
   </ul>
