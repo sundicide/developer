@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>2개의 할일이 남았습니다.</div>
+    <div>{{countTodo}}개의 할일이 남았습니다.</div>
     <div style="display: flex;">
       <el-input placeholder="Please input" v-model="inputValue" @keyup.enter.native="addTodo()">
       </el-input>
@@ -16,6 +16,11 @@ export default {
     return {
       inputValue: ''
     }
+  },
+  computed: {
+    countTodo () {
+      return this.$store.getters.lengthOfRemainTodolist;
+    },
   },
   methods: {
     addTodo() {
