@@ -18,3 +18,9 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+Vue.directive('focus', {
+  inserted: function(el) {
+    el.focus()
+  }
+})

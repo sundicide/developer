@@ -2,8 +2,8 @@
   <ul :class="$style.ul">
     <li v-show="!value.hide" v-for="(value, index) in todolist" v-bind:key="index">
       <el-checkbox v-model="value.done"></el-checkbox>
-      <input v-model="value.label" v-show="value.editmode" @keyup.enter="editTodo(value, false)"/>
-      <span @dblclick="editTodo(value, true)" v-show="!value.editmode">{{value.label}}</span>
+      <input v-model="value.label" v-if="value.editmode" @keyup.enter="editTodo(value, index, false)" :ref="'labelInput'" v-focus @blur="editTodo(value, index, false)"/>
+      <span @dblclick="editTodo(value, index, true)" v-if="!value.editmode">{{value.label}}</span>
       <span :class="$style.close" @click.stop="deleteTodo(index)">&#x00D7;</span>
     </li>
   </ul>
@@ -28,9 +28,16 @@ export default {
     deleteTodo(index){
       this.$store.commit('deleteTodo', index);
     },
-    editTodo(value, flag){
+    editTodo(value, index, flag){
       value.editmode = flag;
     },
+  },
+  directives: {
+    focus: {
+      inserted: function(el){
+        el.focus();
+      }
+    }
   }
 }
 </script>
