@@ -1,7 +1,9 @@
 <template>
   <ul :class="$style.ul">
     <li v-show="!value.hide" v-for="(value, index) in todolist" v-bind:key="index">
-      <el-checkbox :label="value.label" v-model="value.done" :contenteditable="contentEditable" @dblclick.native="editTodo()"></el-checkbox>
+      <el-checkbox v-model="value.done"></el-checkbox>
+      <input v-model="value.label" v-show="value.editmode" @keyup.enter="editTodo(value, false)"/>
+      <span @dblclick="editTodo(value, true)" v-show="!value.editmode">{{value.label}}</span>
       <span :class="$style.close" @click.stop="deleteTodo(index)">&#x00D7;</span>
     </li>
   </ul>
@@ -14,7 +16,7 @@ export default {
   },
   data () {
     return {
-      contentEditable: false,
+      editMode : false,
     }
   },
   computed: {
@@ -26,8 +28,8 @@ export default {
     deleteTodo(index){
       this.$store.commit('deleteTodo', index);
     },
-    editTodo(){
-      this.contentEditable = true;
+    editTodo(value, flag){
+      value.editmode = flag;
     },
   }
 }
