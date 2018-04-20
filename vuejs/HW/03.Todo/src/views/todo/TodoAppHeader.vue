@@ -1,9 +1,13 @@
 <template>
   <div>
     <div>{{countTodo}}개의 할일이 남았습니다.</div>
-    <div style="display: flex;">
-      <el-input placeholder="Please input" v-model="inputValue" @keyup.enter.native="addTodo()">
+    <div :class="$style.div">
+      <el-form :class="$style.form" :model="todoForm" :rules="todoRules" ref="todoForm" @submit.native.prevent="addTodo()">
+        <el-form-item required prop="data">
+      <el-input placeholder="Please input" v-model="todoForm.data">
       </el-input>
+        </el-form-item>
+      </el-form>
       <el-button @click.native="addTodo()">추가</el-button>
     </div>
   </div>
@@ -14,7 +18,18 @@ export default {
   name: 'TodoAppHeader',
   data () {
     return {
-      inputValue: ''
+      inputValue: '',
+      todoForm: {
+        data: null,
+      },
+      todoRules: {
+        data: [
+          {
+            required: true,
+            trigger: 'blur',
+          },
+          ]
+      },
     }
   },
   computed: {
@@ -24,12 +39,21 @@ export default {
   },
   methods: {
     addTodo() {
-      this.$store.commit('addTodo', this.inputValue);
-      this.inputValue = '';
+      this.$refs['todoForm'].validate((valid) => {
+        if(valid){
+          this.$store.commit('addTodo', this.todoForm.data);
+          this.todoForm.data = '';
+        }
+        else {
+          return false;
+        }
+      })
     },
   },
 }
 </script>
 
 <style module>
+.div { display: flex; align-items: end; }
+.form { width: 100% }
 </style>
