@@ -5,7 +5,7 @@
       <el-button type="primary" @click.native="filterRemain()">남은 일</el-button>
       <el-button type="primary" @click.native="filterComplete()">완료된 일</el-button>
     </el-button-group>
-    <el-button type="primary">완료된 일 모두 삭제</el-button>
+    <el-button type="primary" @click.native="deleteCompleteTodo()">완료된 일 모두 삭제</el-button>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ export default {
     },
     filterComplete() {
       this.$store.commit('showCompleteTodo');
+    },
+    deleteCompleteTodo() {
+      this.$store.commit('deleteCompleteTodo');
     },
   },
 }

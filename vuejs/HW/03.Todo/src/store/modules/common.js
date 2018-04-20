@@ -36,6 +36,11 @@ const common = {
           x.hide = false;
       })
     },
+    deleteCompleteTodo: (state) => {
+      state.todolist = state.todolist.filter( x => {
+        return x.done === false
+      })
+    },
   },
   actions: {
   },
