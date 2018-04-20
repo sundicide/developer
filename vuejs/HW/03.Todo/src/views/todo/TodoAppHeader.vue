@@ -25,6 +25,7 @@ export default {
   methods: {
     addTodo() {
       this.$store.commit('addTodo', this.inputValue);
+      this.inputValue = '';
     },
   },
 }
