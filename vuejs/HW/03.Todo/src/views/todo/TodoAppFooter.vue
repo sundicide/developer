@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.div">
     <el-button-group>
-      <el-button type="primary" plain @click.native="filterAll()">전체</el-button>
+      <el-button type="primary" autofocus plain @click.native="filterAll()">전체</el-button>
       <el-button type="primary" plain @click.native="filterRemain()">남은 일</el-button>
       <el-button type="primary" plain @click.native="filterComplete()">완료된 일</el-button>
     </el-button-group>
@@ -14,7 +14,8 @@ export default {
   name: 'TodoAppHeader',
   data () {
     return {
-      inputValue: ''
+      inputValue: '',
+      filtermode: this.$store.getters.filtermode,
     }
   },
   methods: {
@@ -23,6 +24,7 @@ export default {
     },
     filterRemain() {
       this.$store.commit('showRemainTodo');
+      console.log('aa',this.filtermode);
     },
     filterComplete() {
       this.$store.commit('showCompleteTodo');

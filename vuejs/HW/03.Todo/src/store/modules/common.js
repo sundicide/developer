@@ -1,11 +1,15 @@
 const common = {
   state: {
+    filterMode: 'all',
     todolist: [
       {label: '할일 1', done: false, hide: false, editmode: false,},
       {label: '할일 2', done: false, hide: false, editmode: false,},
     ],
   },
   mutations: {
+    changeFilterMode: (state, mode) => {
+      state.filterMode = mode;
+    },
     addTodo: (state, todo) => {
       let newTodo = {
         label: todo, done: false, hide: false, editmode: false,
