@@ -6,4 +6,7 @@
 # ignore all . files and . folders
 .*
 # Dont ignore .gitignore
-!/.gitignore  
+!/.gitignore 
+!**/.babelrc
+!**/.postcssrc.js
+!**/.editorconfig
