@@ -10,7 +10,7 @@
       <template slot-scope="scope">
          <input v-model="scope.row.label" v-if="scope.row.editmode" @keyup.enter="editTodo(scope.row, false)" :ref="'labelInput'" v-focus @blur="editTodo(scope.row, false)"/> 
       <span @dblclick="editTodo(scope.row, true)" v-if="!scope.row.editmode" ref="labelSpan">{{scope.row.label}}</span> 
-      <span :class="$style.close" @click.stop="deleteTodo(scope.$index)">&#x00D7;</span>
+      <span :class="$style.close" @click.stop="deleteTodo(scope.row.id)">&#x00D7;</span>
       </template>
     </el-table-column>
   </el-table>
@@ -47,8 +47,8 @@ export default {
     },
   },
   methods: {
-    deleteTodo(index){
-      this.$store.commit('deleteTodo', index);
+    deleteTodo(id){
+      this.$store.commit('deleteTodo', id);
     },
     editTodo(value, flag){
       value.editmode = flag;

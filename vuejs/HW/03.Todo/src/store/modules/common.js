@@ -4,22 +4,23 @@ const common = {
   state: {
     filterMode: Constant.FILTER_MODE.ALL,
     todolist: [
-      {label: '할일 1', done: true, editmode: false,},
-      {label: '할일 2', done: false, editmode: false,},
+      {label: '할일 1', done: true, editmode: false, id: 1},
+      {label: '할일 2', done: false, editmode: false, id: 2},
     ],
+    nextTodoId: 3,
   },
   mutations: {
     [ Constant.ADD_TODOLIST ]: (state, todo) => {
       let newTodo = {
-        label: todo, done: false, editmode: false,
+        label: todo, done: false, editmode: false, id: state.nextTodoId++
       };
       state.todolist.push(newTodo);
     },
     [ Constant.CHANGE_FILTER_MODE ]: (state, mode) => {
       state.filterMode = mode;
     },
-    deleteTodo: (state, index) => {
-      state.todolist.splice(index, 1);
+    deleteTodo: (state, id) => {
+      state.todolist = state.todolist.filter( todo => todo.id !== id)
     },
     showAllTodo: (state) => {
       state.todolist = state.todolist
