@@ -3,7 +3,7 @@
   <el-table :data="todolist" style="width: 100%">
     <el-table-column prop="label" :filter-method="filterHandler" ref="ttt">
       <template slot-scope="scope">
-        <el-checkbox v-model="scope.done"></el-checkbox>
+        <el-checkbox v-model="scope.row.done"></el-checkbox>
       </template>
     </el-table-column>
     <el-table-column prop="label">
@@ -11,11 +11,11 @@
   </el-table>
   <el-footer>
     <el-button-group>
-      <el-button type="primary" v-for="(value, index) in filtermode" :key="index" @click.natvie="filterButtonClick(value, index)" ref="filterButton" :class="{ 'is-plain': !value.clicked }">
+      <el-button type="primary" v-for="(value, index) in filtermode" :key="index" @click.natvie="filterButtonClick(value.mode, index)" ref="filterButton" :class="{ 'is-plain': !value.clicked }">
         {{ value.label }}
       </el-button>
     </el-button-group>
-    <el-button type="primary">완료된 일 모두 삭제</el-button>
+    <el-button type="primary" @click.native.prevent="deleteCompleteTodo()">완료된 일 모두 삭제</el-button>
   </el-footer>
   </el-container>
 </template>
@@ -32,11 +32,9 @@
 </template>
 
 <script>
-const FILTERMODE = {
-  ALL: 'showAllTodo',
-  REMAIN: 'showRemainTodo',
-  COMPLETE: 'showCompleteTodo',
-}
+import { mapState } from 'vuex';
+import Constant from '@/constant.js';
+
 export default {
   name: 'TodoAppMain',
   components: {
@@ -45,21 +43,15 @@ export default {
     return {
       editMode : false,
       filtermode: [
-        { label: '전체', mode : FILTERMODE.ALL, clicked: true,},
-        { label: '남은 일', mode : FILTERMODE.REMAIN, clicked: false,},
-        { label: '완료된 일', mode : FILTERMODE.COMPLETE, clicked: false,},
+        { label: '전체', mode : Constant.FILTER_MODE.ALL, clicked: true,},
+        { label: '남은 일', mode : Constant.FILTER_MODE.REMAIN, clicked: false,},
+        { label: '완료된 일', mode : Constant.FILTER_MODE.COMPLETE, clicked: false,},
         ],
-      tableData: [],
     }
   },
   computed: {
-    todolist: {
-      get: function () {
-        return this.$store.getters.todolist;
-      },
-      set: function (newTableData) {
-        this.$store.commit('deleteTodo', 0);
-      }
+    todolist: function(){
+      return this.$store.getters.todolist
     },
   },
   methods: {
@@ -70,12 +62,12 @@ export default {
       value.editmode = flag;
     },
     filterButtonClick(value, index){
-      this.$store.commit(value.mode);
+      this.$store.commit('changeFilterMode', value);
       this.filtermode.forEach( x => x.clicked = false )
       this.filtermode[index].clicked = true;
     },
-    temp() {
-      this.$refs.ttt.filterMethod()
+    deleteCompleteTodo() {
+      this.$store.commit('deleteCompleteTodo');
     },
     filterHandler() {
       this.todolist = this.$store.getters.todolist[0];
