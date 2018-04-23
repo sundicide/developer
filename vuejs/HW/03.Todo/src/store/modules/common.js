@@ -9,14 +9,14 @@ const common = {
     ],
   },
   mutations: {
-    changeFilterMode: (state, mode) => {
-      state.filterMode = mode;
-    },
     [ Constant.ADD_TODOLIST ]: (state, todo) => {
       let newTodo = {
-        label: todo, done: false, hide: false, editmode: false,
+        label: todo, done: false, editmode: false,
       };
       state.todolist.push(newTodo);
+    },
+    [ Constant.CHANGE_FILTER_MODE ]: (state, mode) => {
+      state.filterMode = mode;
     },
     deleteTodo: (state, index) => {
       state.todolist.splice(index, 1);
@@ -52,6 +52,9 @@ const common = {
   actions: {
     [ Constant.ADD_TODOLIST ] ({ commit }, newTodo) {
       commit(Constant.ADD_TODOLIST, newTodo);
+    },
+    [ Constant.CHANGE_FILTER_MODE ] ({ commit }, mode) {
+      commit(Constant.CHANGE_FILTER_MODE, mode);
     },
   },
 }

@@ -7,6 +7,11 @@
       </template>
     </el-table-column>
     <el-table-column prop="label">
+      <template slot-scope="scope">
+         <input v-model="scope.row.label" v-if="scope.row.editmode" @keyup.enter="editTodo(scope.row, 0, false)" :ref="'labelInput'" v-focus @blur="editTodo(scope.row, 0, false)"/> 
+      <span @dblclick="editTodo(scope.row, 0, true)" v-if="!scope.row.editmode" ref="labelSpan">{{scope.row.label}}</span> 
+      <span :class="$style.close" @click.stop="deleteTodo(scope.$index)">&#x00D7;</span>
+      </template>
     </el-table-column>
   </el-table>
   <el-footer>
@@ -50,7 +55,7 @@ export default {
       value.editmode = flag;
     },
     filterButtonClick(value, index){
-      this.$store.commit('changeFilterMode', value);
+      this.$store.dispatch(Constant.CHANGE_FILTER_MODE, value);
       this.filtermode.forEach( x => x.clicked = false )
       this.filtermode[index].clicked = true;
     },
