@@ -2,10 +2,10 @@ import Constant from '@/constant.js';
 
 const common = {
   state: {
-    filterMode: 'all',
+    filterMode: Constant.FILTER_MODE.ALL,
     todolist: [
-      {label: Constant.FETCH_TODOLIST, done: false, hide: false, editmode: false,},
-      {label: '할일 2', done: false, hide: false, editmode: false,},
+      {label: '할일 1', done: true, editmode: false,},
+      {label: '할일 2', done: false, editmode: false,},
     ],
   },
   mutations: {
