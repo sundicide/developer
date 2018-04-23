@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{countTodo}}개의 할일이 남았습니다.</div>
+    <div>{{ remainTodosCount }}개의 할일이 남았습니다.</div>
     <div :class="$style.div">
       <el-form :class="$style.form" :model="todoForm" :rules="todoRules" ref="todoForm" @submit.native.prevent="addTodo()">
         <el-form-item required prop="data">
@@ -15,6 +15,7 @@
 
 <script>
 import Constant from '@/constant.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'TodoAppHeader',
@@ -35,9 +36,9 @@ export default {
     }
   },
   computed: {
-    countTodo () {
-      return this.$store.getters.lengthOfRemainTodolist;
-    },
+    ...mapGetters([
+      'remainTodosCount',
+    ])
   },
   methods: {
     addTodo() {
