@@ -1,4 +1,25 @@
 <template>
+  <el-container>
+  <el-table :data="todolist" style="width: 100%">
+    <el-table-column prop="label" :filter-method="filterHandler" ref="ttt">
+      <template slot-scope="scope">
+        <el-checkbox v-model="scope.done"></el-checkbox>
+      </template>
+    </el-table-column>
+    <el-table-column prop="label">
+    </el-table-column>
+  </el-table>
+  <el-footer>
+    <el-button-group>
+      <el-button type="primary" v-for="(value, index) in filtermode" :key="index" @click.natvie="filterButtonClick(value, index)" ref="filterButton" :class="{ 'is-plain': !value.clicked }">
+        {{ value.label }}
+      </el-button>
+    </el-button-group>
+    <el-button type="primary">완료된 일 모두 삭제</el-button>
+  </el-footer>
+  </el-container>
+</template>
+  <!--
   <ul :class="$style.ul">
     <li v-show="!value.hide" v-for="(value, index) in todolist" v-bind:key="index">
       <el-checkbox v-model="value.done"></el-checkbox>
@@ -7,9 +28,15 @@
       <span :class="$style.close" @click.stop="deleteTodo(index)">&#x00D7;</span>
     </li>
   </ul>
+  -->
 </template>
 
 <script>
+const FILTERMODE = {
+  ALL: 'showAllTodo',
+  REMAIN: 'showRemainTodo',
+  COMPLETE: 'showCompleteTodo',
+}
 export default {
   name: 'TodoAppMain',
   components: {
@@ -17,11 +44,22 @@ export default {
   data () {
     return {
       editMode : false,
+      filtermode: [
+        { label: '전체', mode : FILTERMODE.ALL, clicked: true,},
+        { label: '남은 일', mode : FILTERMODE.REMAIN, clicked: false,},
+        { label: '완료된 일', mode : FILTERMODE.COMPLETE, clicked: false,},
+        ],
+      tableData: [],
     }
   },
   computed: {
-    todolist() {
-      return this.$store.getters.todolist;
+    todolist: {
+      get: function () {
+        return this.$store.getters.todolist;
+      },
+      set: function (newTableData) {
+        this.$store.commit('deleteTodo', 0);
+      }
     },
   },
   methods: {
@@ -30,6 +68,17 @@ export default {
     },
     editTodo(value, index, flag){
       value.editmode = flag;
+    },
+    filterButtonClick(value, index){
+      this.$store.commit(value.mode);
+      this.filtermode.forEach( x => x.clicked = false )
+      this.filtermode[index].clicked = true;
+    },
+    temp() {
+      this.$refs.ttt.filterMethod()
+    },
+    filterHandler() {
+      this.todolist = this.$store.getters.todolist[0];
     },
   },
   directives: {

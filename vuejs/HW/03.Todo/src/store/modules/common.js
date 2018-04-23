@@ -1,8 +1,10 @@
+import Constant from '@/constant.js';
+
 const common = {
   state: {
     filterMode: 'all',
     todolist: [
-      {label: '할일 1', done: false, hide: false, editmode: false,},
+      {label: Constant.FETCH_TODOLIST, done: false, hide: false, editmode: false,},
       {label: '할일 2', done: false, hide: false, editmode: false,},
     ],
   },
@@ -10,7 +12,7 @@ const common = {
     changeFilterMode: (state, mode) => {
       state.filterMode = mode;
     },
-    addTodo: (state, todo) => {
+    [ Constant.ADD_TODOLIST ]: (state, todo) => {
       let newTodo = {
         label: todo, done: false, hide: false, editmode: false,
       };
@@ -20,17 +22,18 @@ const common = {
       state.todolist.splice(index, 1);
     },
     showAllTodo: (state) => {
-      state.todolist.forEach(x => {
-        x.hide = false;
-      })
+      state.todolist = state.todolist
     },
     showRemainTodo: (state) => {
+      state.todolist = state.todolist.forEach(x => x.done == false )
+      /*
       state.todolist.find(x => {
         if (x.done === true)
           x.hide = true;
         else
           x.hide = false;
       })
+      */
     },
     showCompleteTodo: (state) => {
       state.todolist.find(x => {
@@ -47,6 +50,9 @@ const common = {
     },
   },
   actions: {
+    [ Constant.ADD_TODOLIST ] ({ commit }, newTodo) {
+      commit(Constant.ADD_TODOLIST, newTodo);
+    },
   },
 }
 

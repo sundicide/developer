@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import Constant from '@/constant.js';
+
 export default {
   name: 'TodoAppHeader',
   data () {
@@ -41,9 +43,9 @@ export default {
     addTodo() {
       this.$refs['todoForm'].validate((valid) => {
         if(valid){
-          this.$store.commit('addTodo', this.todoForm.data);
+          this.$store.dispatch(Constant.ADD_TODOLIST, this.todoForm.data);
           this.todoForm.data = '';
-          this.$store.commit('showAllTodo');
+          //this.$store.commit('showAllTodo');
         }
         else {
           return false;
