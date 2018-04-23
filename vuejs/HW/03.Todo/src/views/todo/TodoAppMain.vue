@@ -34,7 +34,6 @@ export default {
   },
   data () {
     return {
-      editMode : false,
       filtermode: [
         { label: '전체', mode : Constant.FILTER_MODE.ALL, clicked: true,},
         { label: '남은 일', mode : Constant.FILTER_MODE.REMAIN, clicked: false,},
