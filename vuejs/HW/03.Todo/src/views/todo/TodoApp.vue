@@ -12,7 +12,6 @@
 <script>
 import WTodoAppHeader from './TodoAppHeader'
 import WTodoAppMain from './TodoAppMain'
-import WTodoAppFooter from './TodoAppFooter'
 export default {
   name: 'TodoApp',
   data () {
@@ -21,7 +20,7 @@ export default {
     }
   },
   components: {
-    WTodoAppHeader, WTodoAppMain, WTodoAppFooter,
+    WTodoAppHeader, WTodoAppMain,
   }
 }
 </script>
