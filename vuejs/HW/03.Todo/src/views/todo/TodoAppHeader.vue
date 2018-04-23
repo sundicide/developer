@@ -46,7 +46,6 @@ export default {
         if(valid){
           this.$store.dispatch(Constant.ADD_TODOLIST, this.todoForm.data);
           this.todoForm.data = '';
-          //this.$store.commit('showAllTodo');
         }
         else {
           return false;

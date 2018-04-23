@@ -19,32 +19,10 @@ const common = {
     [ Constant.CHANGE_FILTER_MODE ]: (state, mode) => {
       state.filterMode = mode;
     },
-    deleteTodo: (state, id) => {
+    [ Constant.DELETE_TODO ]: (state, id) => {
       state.todolist = state.todolist.filter( todo => todo.id !== id)
     },
-    showAllTodo: (state) => {
-      state.todolist = state.todolist
-    },
-    showRemainTodo: (state) => {
-      state.todolist = state.todolist.forEach(x => x.done == false )
-      /*
-      state.todolist.find(x => {
-        if (x.done === true)
-          x.hide = true;
-        else
-          x.hide = false;
-      })
-      */
-    },
-    showCompleteTodo: (state) => {
-      state.todolist.find(x => {
-        if (x.done === false)
-          x.hide = true;
-        else
-          x.hide = false;
-      })
-    },
-    deleteCompleteTodo: (state) => {
+    [ Constant.DELETE_COMPLETELIST ]: (state) => {
       state.todolist = state.todolist.filter( x => {
         return x.done === false
       })
@@ -56,6 +34,12 @@ const common = {
     },
     [ Constant.CHANGE_FILTER_MODE ] ({ commit }, mode) {
       commit(Constant.CHANGE_FILTER_MODE, mode);
+    },
+    [ Constant.DELETE_TODO] ({ commit }, id){
+      commit(Constant.DELETE_TODO, id);
+    },
+    [ Constant.DELETE_COMPLETELIST] ({ commit }, id){
+      commit(Constant.DELETE_COMPLETELIST);
     },
   },
 }

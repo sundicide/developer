@@ -1,7 +1,8 @@
 export default {
   FETCH_TODOLIST : 'fetchTodolist',
   ADD_TODOLIST: 'addTodolist',
-  DELETE_TODOLIST: 'deleteTodolist',
+  DELETE_TODO: 'deleteTodo',
+  DELETE_COMPLETELIST: 'deleteCompleteList',
   FILTER_MODE : {
     ALL: 'showAllTodo',
     REMAIN: 'showRemainTodo',

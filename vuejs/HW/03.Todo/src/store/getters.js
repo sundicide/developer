@@ -12,7 +12,6 @@ const getters = {
     }
     else
       return [];
-
   },
   remainTodosCount: state => {
     return state.common.todolist.filter(todo => {

@@ -1,7 +1,7 @@
 <template>
-  <el-container>
-  <el-table :data="todolist" style="width: 100%">
-    <el-table-column prop="label">
+  <div>
+  <el-table :data="todolist" style="width: 100%" :class="$style.todoTable" >
+    <el-table-column prop="label" width="50px">
       <template slot-scope="scope">
         <el-checkbox v-model="scope.row.done"></el-checkbox>
       </template>
@@ -14,15 +14,15 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-footer>
+  <div :class="$style.footerButtons">
     <el-button-group>
       <el-button type="primary" v-for="(value, index) in filtermode" :key="index" @click.natvie="filterButtonClick(value.mode, index)" ref="filterButton" :class="{ 'is-plain': !value.clicked }">
         {{ value.label }}
       </el-button>
     </el-button-group>
     <el-button type="primary" @click.native.prevent="deleteCompleteTodo()">완료된 일 모두 삭제</el-button>
-  </el-footer>
-  </el-container>
+  </div>
+  </div>
 </template>
 <script>
 import { mapState } from 'vuex';
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     deleteTodo(id){
-      this.$store.commit('deleteTodo', id);
+      this.$store.dispatch(Constant.DELETE_TODO, id);
     },
     editTodo(value, flag){
       value.editmode = flag;
@@ -59,36 +59,25 @@ export default {
       this.filtermode[index].clicked = true;
     },
     deleteCompleteTodo() {
-      this.$store.commit('deleteCompleteTodo');
+      this.$store.dispatch(Constant.DELETE_COMPLETELIST);
     },
   },
-  directives: {
-    focus: {
-      inserted: function(el){
-        el.focus();
-      }
-    }
-  }
 }
 </script>
 
 <style module>
-.ul {  margin: 0; padding: 0; list-style-type: none;}
-.ul li { 
-    cursor: pointer; position: relative; padding: 8px 8px 8px 40px;
-    background: #eee; font-size: 14px;  transition: 0.2s;
+.footerButtons {
+  margin-top: 20px; display: flex; justify-content: space-between;
+}
+.todoTable tr td{ 
+    position: relative;
+    transition: 0.5s;
     -webkit-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;  
 }
-.ul li:hover {  background: #ddd;  }
-.ul li.checked {
+.todoTable tr:hover td { color: red; background: black !important; cursor: pointer;}
+.todoTable label[rold='checkbox'].is-checked {
     background: #BBB;  color: #fff; text-decoration: line-through;
-}
-.ul li.checked::before {
-    content: ''; position: absolute; border-color: #fff;
-    border-style: solid; border-width: 0px 1px 1px 0px; 
-    top: 10px; left: 16px;  transform: rotate(45deg);
-    height: 8px; width: 8px;
 }
 .close {
     position: absolute; right: 0; top: 0;
