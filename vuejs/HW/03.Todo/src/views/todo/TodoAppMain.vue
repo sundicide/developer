@@ -1,7 +1,7 @@
 <template>
   <el-container>
   <el-table :data="todolist" style="width: 100%">
-    <el-table-column prop="label" :filter-method="filterHandler" ref="ttt">
+    <el-table-column prop="label">
       <template slot-scope="scope">
         <el-checkbox v-model="scope.row.done"></el-checkbox>
       </template>
@@ -19,18 +19,6 @@
   </el-footer>
   </el-container>
 </template>
-  <!--
-  <ul :class="$style.ul">
-    <li v-show="!value.hide" v-for="(value, index) in todolist" v-bind:key="index">
-      <el-checkbox v-model="value.done"></el-checkbox>
-      <input v-model="value.label" v-if="value.editmode" @keyup.enter="editTodo(value, index, false)" :ref="'labelInput'" v-focus @blur="editTodo(value, index, false)"/>
-      <span @dblclick="editTodo(value, index, true)" v-if="!value.editmode">{{value.label}}</span>
-      <span :class="$style.close" @click.stop="deleteTodo(index)">&#x00D7;</span>
-    </li>
-  </ul>
-  -->
-</template>
-
 <script>
 import { mapState } from 'vuex';
 import Constant from '@/constant.js';
@@ -68,9 +56,6 @@ export default {
     },
     deleteCompleteTodo() {
       this.$store.commit('deleteCompleteTodo');
-    },
-    filterHandler() {
-      this.todolist = this.$store.getters.todolist[0];
     },
   },
   directives: {
