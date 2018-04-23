@@ -1,9 +1,19 @@
+import Constant from '@/constant.js';
+
 const getters = {
-  lengthOfRemainTodolist: (state) => {
-    return state.common.todolist.filter(x => x.done === false).length
+  todolist: (state) => {
+    let mode = state.common.filterMode
+    if(mode === Constant.FILTER_MODE.ALL)
+      return state.common.todolist;
+    else if(mode === Constant.FILTER_MODE.REMAIN)
+      return state.common.todolist.filter( todo => todo.done === false );
+    else if(mode === Constant.FILTER_MODE.COMPLETE){
+      return state.common.todolist.filter( todo => todo.done === true );
+    }
+    else
+      return [];
+
   },
-  todolist: (state) => state.common.todolist,
-  filtermode: (state) => state.common.filterMode,
   remainTodosCount: state => {
     return state.common.todolist.filter(todo => {
       return todo.done == false
