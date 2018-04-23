@@ -8,8 +8,8 @@
     </el-table-column>
     <el-table-column prop="label">
       <template slot-scope="scope">
-         <input v-model="scope.row.label" v-if="scope.row.editmode" @keyup.enter="editTodo(scope.row, 0, false)" :ref="'labelInput'" v-focus @blur="editTodo(scope.row, 0, false)"/> 
-      <span @dblclick="editTodo(scope.row, 0, true)" v-if="!scope.row.editmode" ref="labelSpan">{{scope.row.label}}</span> 
+         <input v-model="scope.row.label" v-if="scope.row.editmode" @keyup.enter="editTodo(scope.row, false)" :ref="'labelInput'" v-focus @blur="editTodo(scope.row, false)"/> 
+      <span @dblclick="editTodo(scope.row, true)" v-if="!scope.row.editmode" ref="labelSpan">{{scope.row.label}}</span> 
       <span :class="$style.close" @click.stop="deleteTodo(scope.$index)">&#x00D7;</span>
       </template>
     </el-table-column>
@@ -51,7 +51,7 @@ export default {
     deleteTodo(index){
       this.$store.commit('deleteTodo', index);
     },
-    editTodo(value, index, flag){
+    editTodo(value, flag){
       value.editmode = flag;
     },
     filterButtonClick(value, index){
