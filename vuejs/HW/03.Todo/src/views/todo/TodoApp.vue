@@ -6,9 +6,6 @@
     <el-main>
       <w-todo-app-main />
     </el-main>
-    <el-footer>
-      <w-todo-app-footer />
-    </el-footer>
   </el-container>
 </template>
 
